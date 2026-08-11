@@ -160,19 +160,17 @@ export default function NotificationBell() {
                 <div
                   key={n.id}
                   onClick={(e) => !n.is_read && handleMarkAsRead(n.id, e)}
-                  className={`p-3 transition cursor-pointer flex space-x-3 items-start ${
-                    !n.is_read
+                  className={`p-3 transition cursor-pointer flex space-x-3 items-start ${!n.is_read
                       ? "bg-slate-800/40 hover:bg-slate-800/80"
                       : "hover:bg-slate-800/30 text-slate-400"
-                  }`}
+                    }`}
                 >
                   <div className="mt-0.5">{getSeverityIcon(n.severity)}</div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-0.5">
                       <p
-                        className={`text-xs font-semibold truncate ${
-                          !n.is_read ? "text-slate-100" : "text-slate-400"
-                        }`}
+                        className={`text-xs font-semibold truncate ${!n.is_read ? "text-slate-100" : "text-slate-400"
+                          }`}
                       >
                         {n.title}
                       </p>

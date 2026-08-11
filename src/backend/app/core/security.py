@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from jose import JWTError, jwt
+# pyrefly: ignore [missing-import]
 from passlib.context import CryptContext
 
 raw_secret = os.getenv("JWT_SECRET") or os.getenv("SECRET_KEY")

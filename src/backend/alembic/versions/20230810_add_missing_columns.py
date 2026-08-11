@@ -2,7 +2,9 @@
 
 from typing import Sequence, Union
 
+# pyrefly: ignore [missing-module-attribute]
 from alembic import op
+# pyrefly: ignore [missing-import]
 import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.

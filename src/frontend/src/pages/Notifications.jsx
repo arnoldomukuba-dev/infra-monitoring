@@ -231,20 +231,18 @@ export default function Notifications() {
             {filteredNotifs.map((n) => (
               <div
                 key={n.id}
-                className={`p-4 transition flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
-                  !n.is_read
-                    ? "bg-slate-800/30 hover:bg-slate-800/50"
-                    : "hover:bg-slate-800/20 text-slate-400"
-                }`}
+                className={`p-4 transition flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${!n.is_read
+                  ? "bg-slate-800/30 hover:bg-slate-800/50"
+                  : "hover:bg-slate-800/20 text-slate-400"
+                  }`}
               >
                 <div className="flex items-start space-x-3.5">
                   <div className="mt-1">{getSeverityBadge(n.severity)}</div>
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
                       <h3
-                        className={`text-sm font-semibold ${
-                          !n.is_read ? "text-slate-100" : "text-slate-300"
-                        }`}
+                        className={`text-sm font-semibold ${!n.is_read ? "text-slate-100" : "text-slate-300"
+                          }`}
                       >
                         {n.title}
                       </h3>

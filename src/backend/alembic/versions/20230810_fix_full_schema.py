@@ -5,7 +5,9 @@ Revises: 20230810_add_missing_columns
 Create Date: 2026-08-10
 """
 from typing import Sequence, Union
+# pyrefly: ignore [missing-module-attribute]
 from alembic import op
+# pyrefly: ignore [missing-import]
 import sqlalchemy as sa
 
 

@@ -1,6 +1,8 @@
 from datetime import datetime, timezone
 from typing import Optional, List
+# pyrefly: ignore [missing-import]
 from sqlalchemy import String, Boolean, DateTime
+# pyrefly: ignore [missing-import]
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.database.database import Base
 

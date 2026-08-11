@@ -3,7 +3,9 @@ import asyncio
 from datetime import datetime, timezone
 from contextlib import asynccontextmanager
 
+# pyrefly: ignore [missing-import]
 from fastapi import FastAPI
+# pyrefly: ignore [missing-import]
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database.database import Base, engine, SessionLocal
@@ -110,7 +112,9 @@ async def lifespan(app: FastAPI):
     bg_task.cancel()
 
 
+# pyrefly: ignore [missing-import]
 from fastapi import Request
+# pyrefly: ignore [missing-import]
 from starlette.middleware.base import BaseHTTPMiddleware
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
