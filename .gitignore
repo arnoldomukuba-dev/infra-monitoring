@@ -27,3 +27,6 @@ build/
 .idea/
 *.swp
 .DS_Store
+# SSH keys
+arnold
+arnold.pub
