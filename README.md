@@ -1,147 +1,274 @@
 # ODRISYSTEMS Infrastructure Monitoring Platform
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/odrisystems/infra-monitoring)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/arnoldomukuba-dev/infra-monitoring)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Docker](https://img.shields.io/badge/docker-ready-cyan.svg)](docker-compose.yml)
+[![Docker](https://img.shields.io/badge/docker-ready-2496ED.svg)](docker-compose.yml)
 [![FastAPI](https://img.shields.io/badge/backend-FastAPI-009688.svg)](https://fastapi.tiangolo.com/)
-[![React](https://img.shields.io/badge/frontend-React%20%2B%20Vite-61DAFB.svg)](https://react.dev/)
+[![React](https://img.shields.io/badge/frontend-React-61DAFB.svg)](https://react.dev/)
+[![PostgreSQL](https://img.shields.io/badge/database-PostgreSQL-336791.svg)](https://www.postgresql.org/)
 
-**ODRISYSTEMS Infrastructure Monitoring Platform** is an enterprise-grade, real-time infrastructure observability, backup monitoring, and alert management system. Built with modern full-stack technologies (FastAPI, React, PostgreSQL, Nginx, Docker), it provides full visiblity into server resource telemetry, backup operations, automated threshold alerting, audit trails, and Role-Based Access Control (RBAC).
+**ODRISYSTEMS Infrastructure Monitoring Platform** is a full-stack infrastructure observability and backup monitoring system designed to provide centralized visibility into server health, resource utilization, backup operations, alerts, and audit activity.
+
+The platform combines a **FastAPI backend, React frontend, PostgreSQL database, Nginx, and Docker Compose** into a containerized monitoring environment.
 
 ---
 
-## 🚀 Features
+## 🚀 Key Features
 
-- **Real-Time Telemetry & Monitoring**: Monitor host CPU load, RAM utilization, disk partition space, and uptime across distributed server nodes.
-- **Automated Threshold Alerting**: Automatic generation of `WARNING` and `CRITICAL` alerts based on configurable metrics (e.g. Disk > 90%, RAM > 80%).
-- **Backup Verification Engine**: Track backup job executions (`SUCCESS` vs `FAILED`), track backup sizes, and trigger immediate alerts upon backup failure.
-- **Audit Logging**: Immutable event log tracking user logins, server registrations, threshold breaches, and backup status changes.
-- **Multi-Role Access Control (RBAC)**: Fine-grained permissions for 4 distinct roles:
-  - 👑 `ADMIN`: Full administrative control over users, settings, servers, backups, and logs.
-  - 🛠️ `INFRASTRUCTURE_MANAGER`: Manage servers, backup configurations, and trigger heartbeats.
-  - 👁️ `MONITORING_OPERATOR`: View telemetry, acknowledge alerts, and monitor system metrics.
-  - 📖 `READ_ONLY`: Read-only access to monitoring dashboards and alerts.
-- **Containerized Architecture**: Isolated, microservices-based deployment using Docker Compose and Nginx reverse proxy.
+### Infrastructure Monitoring
+
+- Real-time CPU utilization monitoring
+- RAM utilization monitoring
+- Disk and partition monitoring
+- Server uptime tracking
+- Distributed server/node monitoring
+
+### Alert Management
+
+- Configurable monitoring thresholds
+- `WARNING` and `CRITICAL` alert levels
+- Automatic threshold-based alert generation
+- Alert acknowledgement workflow
+
+### Backup Monitoring
+
+- Backup job status tracking
+- Successful and failed backup detection
+- Backup size tracking
+- Backup failure alerts
+- Database backup and restore procedures
+
+### Security & Access Control
+
+- JWT-based authentication
+- Password hashing with bcrypt
+- Role-Based Access Control (RBAC)
+- Multiple user roles and permissions
+- Protected API endpoints
+- Audit logging
+
+### Audit & Administration
+
+- User activity logging
+- Server registration tracking
+- Backup activity tracking
+- Alert history
+- Administrative management features
+
+### Containerized Deployment
+
+- Docker-based services
+- Docker Compose orchestration
+- PostgreSQL persistent storage
+- Nginx reverse proxy
+- Production-oriented frontend build
+
+---
+
+## 🏗️ System Architecture
+
+```text
+                    ┌─────────────────────┐
+                    │     Web Browser     │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   React + Vite      │
+                    │     Frontend        │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │       Nginx         │
+                    │ Reverse Proxy / Web │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   FastAPI Backend   │
+                    │ Authentication/API  │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │     PostgreSQL      │
+                    │      Database       │
+                    └─────────────────────┘
+
+             Monitoring / Backup Services
+                         │
+                         ▼
+                 Server Telemetry
+```
 
 ---
 
 ## 🛠️ Technology Stack
 
 | Layer | Technology |
-| :--- | :--- |
-| **Frontend** | React 18, Vite, Vanilla CSS design system, Lucide Icons |
-| **Backend** | Python 3.11, FastAPI, Pydantic v2, Uvicorn |
-| **Database** | PostgreSQL 15, SQLAlchemy ORM, Alembic Migrations |
-| **Authentication** | OAuth2 Password Bearer, JWT Tokens, Bcrypt Password Hashing |
-| **Web Server / Proxy** | Nginx Alpine (Reverse Proxy & Static Asset Serving) |
-| **Containerization** | Docker, Docker Compose |
+|---|---|
+| Frontend | React 18, Vite, CSS, Lucide Icons |
+| Backend | Python 3.11, FastAPI, Pydantic |
+| API Server | Uvicorn |
+| Database | PostgreSQL 15 |
+| ORM | SQLAlchemy |
+| Migrations | Alembic |
+| Authentication | JWT / OAuth2 Password Bearer |
+| Password Security | Bcrypt |
+| Reverse Proxy | Nginx |
+| Containerization | Docker |
+| Orchestration | Docker Compose |
+| Testing | Pytest |
 
 ---
 
 ## 📁 Project Structure
 
-```
+```text
 infra-monitoring/
-├── docker-compose.yml        # Orchestration setup for PostgreSQL, Backend, and Frontend
-├── .env.example              # Sanitized environment configuration template
-├── README.md                 # Production documentation & guide
-├── CHANGELOG.md              # Project release history (v1.0.0)
-├── docs/                     # Architecture & migration documentation
+├── docker-compose.yml
+├── .env.example
+├── README.md
+├── CHANGELOG.md
+├── LICENSE
+├── docs/
+│   └── ...
 ├── src/
-│   ├── backend/              # FastAPI Python backend application
-│   │   ├── Dockerfile        # Backend container build instructions
-│   │   ├── alembic/          # Database migration scripts
+│   ├── backend/
+│   │   ├── Dockerfile
+│   │   ├── alembic/
 │   │   ├── app/
-│   │   │   ├── api/          # API route controllers (/auth, /servers, /alerts, /backups, /logs, /users)
-│   │   │   ├── core/         # Core security, JWT, config & RBAC dependencies
-│   │   │   ├── database/     # SQLAlchemy database connection session
-│   │   │   ├── models/       # Database models (User, Server, Alert, Backup, Log, Notification)
-│   │   │   ├── schemas/      # Pydantic validation schemas
-│   │   │   ├── services/     # Business logic & monitoring services
-│   │   │   └── tests/        # Pytest unit and integration test suite
-│   │   └── requirements.txt  # Python backend dependencies
-│   └── frontend/             # React Vite frontend application
-│       ├── Dockerfile        # Multi-stage production build (Node + Nginx)
-│       ├── nginx.conf        # Production Nginx reverse proxy configuration
-│       ├── package.json      # Frontend npm dependencies
-│       └── src/              # React pages, components, context, and API modules
+│   │   │   ├── api/
+│   │   │   ├── core/
+│   │   │   ├── database/
+│   │   │   ├── models/
+│   │   │   ├── schemas/
+│   │   │   ├── services/
+│   │   │   └── tests/
+│   │   └── requirements.txt
+│   │
+│   └── frontend/
+│       ├── Dockerfile
+│       ├── nginx.conf
+│       ├── package.json
+│       └── src/
+│
+└── tests/
 ```
 
 ---
 
-## ⚡ Quick Start & Docker Setup
+## ⚡ Quick Start
 
 ### Prerequisites
-- Docker Engine `v20.10+`
-- Docker Compose `v2.0+`
 
-### Installation & Deployment
+Make sure the following are installed:
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/odrisystems/infra-monitoring.git
-   cd infra-monitoring
-   ```
+- Docker Engine 20.10+
+- Docker Compose 2.0+
+- Git
 
-2. **Configure Environment Variables**:
-   ```bash
-   cp .env.example .env
-   ```
-   *(Edit `.env` to configure your custom JWT secrets and database passwords if needed).*
+### 1. Clone the repository
 
-3. **Start Containerized Platform**:
-   ```bash
-   docker compose up -d --build
-   ```
+```bash
+git clone git@github-arnoldomukuba-dev:arnoldomukuba-dev/infra-monitoring.git
+cd infra-monitoring
+```
 
-4. **Verify Running Services**:
-   ```bash
-   docker compose ps
-   ```
+### 2. Configure environment variables
 
-5. **Access Application**:
-   - **Frontend UI**: `http://localhost:8080`
-   - **Backend API**: `http://localhost:8081`
-   - **Interactive API Docs (Swagger)**: `http://localhost:8081/docs`
+Create your local environment file:
+
+```bash
+cp .env.example .env
+```
+
+Review the values in `.env` and replace development secrets with secure production values where necessary.
+
+> **Never commit `.env` or real credentials to GitHub.**
+
+### 3. Build and start the platform
+
+```bash
+docker compose up -d --build
+```
+
+### 4. Check running containers
+
+```bash
+docker compose ps
+```
+
+### 5. View logs
+
+```bash
+docker compose logs -f
+```
 
 ---
 
-## 🔑 Default RBAC Credentials
+## 🌐 Application Access
 
-| Role | Username | Default Password | Access Level |
-| :--- | :--- | :--- | :--- |
-| **Admin** | `admin` | `admin123` | Full Access (Users, Settings, Servers, Backups) |
-| **Manager** | `manager` | `manager123` | Infrastructure & Backup Operations |
-| **Operator** | `operator` | `operator123` | Monitoring & Alert Acknowledgements |
-| **Read Only** | `readonly` | `readonly123` | Telemetry Read-Only Views |
+Depending on your Docker Compose configuration, the platform provides access to the following services:
+
+| Service | URL |
+|---|---|
+| Frontend | `http://localhost:8080` |
+| Backend API | `http://localhost:8081` |
+| Swagger API Docs | `http://localhost:8081/docs` |
+
+If your local configuration uses different ports, refer to `docker-compose.yml`.
 
 ---
 
-## 💾 Database Backup & Restore Procedures
+## 🔐 Authentication & RBAC
 
-### Database Persistence
-PostgreSQL data is stored in the persistent Docker volume `infra-monitoring_postgres_data`. Data persists across container restarts and updates.
+The platform supports role-based access control for different operational responsibilities.
 
-### Creating a Manual Database Backup
+| Role | Purpose |
+|---|---|
+| `ADMIN` | Full administrative access |
+| `INFRASTRUCTURE_MANAGER` | Server and backup management |
+| `MONITORING_OPERATOR` | Monitoring and alert operations |
+| `READ_ONLY` | Read-only monitoring access |
+
+**No production credentials are stored in this README.**
+
+For local development credentials, use the application's configured environment or seed process.
+
+---
+
+## 💾 Database Backup & Restore
+
+PostgreSQL data is stored in a persistent Docker volume.
+
+### Create a database backup
+
 ```bash
 docker compose exec -T db pg_dump -U postgres infra_monitoring > backup_$(date +%Y%m%d_%H%M%S).sql
 ```
 
-### Restoring a Database Backup
+### Restore a database backup
+
 ```bash
 docker compose exec -i db psql -U postgres -d infra_monitoring < backup_file.sql
 ```
 
+Always verify backup files before performing a production restore.
+
 ---
 
-## 🧪 Testing & Quality Assurance
+## 🧪 Testing
 
-### Run Backend Unit & Integration Tests
+### Run backend tests
+
 ```bash
 docker compose exec -T backend sh -c "PYTHONPATH=. pytest"
 ```
 
-### Run Frontend Production Build Check
+### Build the frontend
+
 ```bash
 cd src/frontend
 npm run build
@@ -149,18 +276,111 @@ npm run build
 
 ---
 
-## 🛡️ Production Release Checklist
+## 🛡️ Security Practices
 
-- [x] All default passwords securely hashed in database via bcrypt.
-- [x] Environment files (`.env`) excluded from version control via `.gitignore`.
-- [x] `VITE_API_URL` set to relative path (`""`) for seamless Nginx proxying.
-- [x] PostgreSQL volume persistence verified.
-- [x] Container health checks verified and passing.
-- [x] Backend test suite passing 100% (5/5 suites).
-- [x] Frontend asset compilation tested via Vite production build.
+The project follows several security-oriented practices:
+
+- Environment secrets are excluded through `.gitignore`
+- SSH private keys are excluded from version control
+- Passwords are hashed before database storage
+- JWT authentication protects API access
+- RBAC restricts access according to user roles
+- Database persistence is handled through Docker volumes
+- API access is separated from frontend presentation
+- Production secrets should be supplied through environment configuration
+
+> **Important:** Before deploying to production, generate unique secrets and credentials and review all exposed ports and services.
+
+---
+
+## 🚀 Deployment
+
+The application is designed around a containerized deployment model.
+
+A typical deployment flow is:
+
+```text
+Developer
+    │
+    ▼
+Git Repository
+    │
+    ▼
+Docker Build
+    │
+    ▼
+Docker Compose
+    │
+    ├── React / Nginx
+    ├── FastAPI
+    └── PostgreSQL
+```
+
+For production deployment, configure:
+
+- Secure environment variables
+- Strong database credentials
+- Unique JWT secrets
+- HTTPS/TLS
+- Firewall rules
+- Database backup schedules
+- Monitoring and log retention
+
+---
+
+## 📋 Development Workflow
+
+Recommended development workflow:
+
+```bash
+git pull
+git checkout -b feature/your-feature
+```
+
+Make your changes, test them, then:
+
+```bash
+git add .
+git commit -m "feat: describe your change"
+git push origin feature/your-feature
+```
+
+Open a pull request for review before merging into `main`.
+
+---
+
+## 📌 Project Status
+
+**Current release:** `v1.0.0`
+
+The platform currently provides the foundation for:
+
+- Infrastructure monitoring
+- Backup monitoring
+- Alert management
+- Authentication
+- RBAC
+- Audit logging
+- Containerized deployment
+- PostgreSQL persistence
+
+Future improvements can include additional monitoring agents, notification integrations, expanded dashboards, automated deployment pipelines, and cloud infrastructure integrations.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
+
+See [LICENSE](LICENSE) for details.
+
+---
+
+## 👨‍💻 Author
+
+**Arnold Omukuba**
+
+Software Development | Cloud Computing | Infrastructure & Systems
+
+GitHub: [@arnoldomukuba-dev](https://github.com/arnoldomukuba-dev)
+o
