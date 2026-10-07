@@ -28,5 +28,6 @@ build/
 *.swp
 .DS_Store
 # SSH keys
+*.pub
+id_*
 arnold
-arnold.pub
